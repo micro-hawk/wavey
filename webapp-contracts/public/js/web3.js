@@ -71,14 +71,13 @@ const contractABI = [
   }
 ]
 
-const CONTRACT_ADDRESS = "XXXXX"
+const CONTRACT_ADDRESS = "0xca9a3A0F021b3683d566299D5C7cA50e6Af8BF8f"
 
 let web3;
 let contract;
 
-const statusButton = document.getElementById("status");
-statusButton.addEventListener('click', connectMetamask);
-
+const waveButton = document.getElementById("wave-btn");
+waveButton.addEventListener('click', wave);
 
 async function connectMetamask() {
   if (window.ethereum) {
@@ -86,19 +85,20 @@ async function connectMetamask() {
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       web3 = new Web3(window.ethereum);
       contract = new web3.eth.Contract(contractABI, CONTRACT_ADDRESS);
-      alert("Connected to metamask")
       console.log('Connected to Metamask');
     } catch (error) {
       console.error(error);
     }
   } else {
+    alert("Metamask not detected")
     console.error('Metamask not detected');
   }
 }
-
 async function wave() {
-  const message = prompt('Enter a message:');
-  if (message === null) return;
+  connectMetamask()
+  let waveMessage = document.getElementById("wave-message").value;
+  const message = waveMessage;
+  if (waveMessage.length == 0) return;
 
   const accounts = await web3.eth.getAccounts();
   const sender = accounts[0];
@@ -108,8 +108,10 @@ async function wave() {
   console.log('Waved:', message);
 }
 
+const totalWaves = document.getElementById("total-wave-btn");
+totalWaves.addEventListener('click', getWaves);
 async function getWaves() {
+  await connectMetamask()
   const waves = await contract.methods.getWaves().call();
-
   console.log('Waves:', waves);
 }
