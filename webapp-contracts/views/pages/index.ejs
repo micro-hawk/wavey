@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../components/head'); %>
+  </head>
+  <body class="container">
+    <header><%- include('../components/header'); %></header>
+    <main>
+      <div class="jumbotron">
+        <form
+          style="
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+          "
+        >
+          <input
+            type="text"
+            style="
+              padding: 10px;
+              font-size: 16px;
+              border-radius: 5px;
+              border: none;
+              box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+              margin-bottom: 20px;
+              width: 300px;
+              max-width: 100%;
+            "
+            placeholder="Enter your Wave Message"
+          />
+          <input
+            type="submit"
+            style="
+              padding: 10px 20px;
+              background-color: #4caf50;
+              color: white;
+              border-radius: 5px;
+              border: none;
+              font-size: 16px;
+              cursor: pointer;
+            "
+            value="Wave 👋🏼"
+          />
+          <input
+            id="status"
+            type="button"
+            style="
+              margin-top: 10px;
+              padding: 10px 20px;
+              background-color: #3cbbe2;
+              color: white;
+              border-radius: 5px;
+              border: none;
+              font-size: 16px;
+              cursor: pointer;
+            "
+            value="Status"
+          />
+        </form>
+      </div>
+    </main>
+
+    <script src="js/web3.js"></script>
+  </body>
+</html>
