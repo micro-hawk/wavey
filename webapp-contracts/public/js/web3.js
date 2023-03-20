@@ -96,23 +96,28 @@ async function connectMetamask() {
   }
 }
 async function wave() {
-  connectMetamask()
-  let waveMessage = document.getElementById("wave-message").value;
-  const message = waveMessage;
-  if (waveMessage.length == 0) return;
-
+  let waveMessage = document.getElementById("wave-message");
+  const message = waveMessage.value;
+  if (message.length == 0) return;
+  web3 = new Web3(window.ethereum);
+  contract = new web3.eth.Contract(contractABI, CONTRACT_ADDRESS);
   const accounts = await web3.eth.getAccounts();
   const sender = accounts[0];
-
+  document.querySelector('.loader').style.display = 'block';
   await contract.methods.wave(message).send({ from: sender });
-
+  
   console.log('Waved:', message);
+  document.querySelector('.loader').style.display = 'none';
+  setTimeout(function(){ alert(`Waved: ${message}`); }, 1500);
+  waveMessage.value = '';
 }
 
 const totalWaves = document.getElementById("total-wave-btn");
 totalWaves.addEventListener('click', getWaves);
+
 async function getWaves() {
-  await connectMetamask()
+  web3 = new Web3(window.ethereum);
+  contract = new web3.eth.Contract(contractABI, CONTRACT_ADDRESS);
   const waves = await contract.methods.getWaves().call();
   console.log('Waves:', waves);
 }
