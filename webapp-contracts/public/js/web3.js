@@ -71,7 +71,8 @@ const contractABI = [
   }
 ]
 
-const CONTRACT_ADDRESS = "0xca9a3A0F021b3683d566299D5C7cA50e6Af8BF8f"
+
+const CONTRACT_ADDRESS = "XXX"
 
 let web3;
 let contract;
